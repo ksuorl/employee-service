@@ -3,7 +3,6 @@ package com.example.employeeservice.models;
 import lombok.Builder;
 import lombok.Value;
 
-import java.time.Instant;
 import java.util.Date;
 import java.util.List;
 

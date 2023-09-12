@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface EmployeeService {
     EmployeeData createEmployee(CreateEmployeeRequest createEmployeeRequest) throws EmployeeDuplicateException;
-    EmployeeData updateEmployee(String employeeUuid, UpdateEmployeeRequest updateEmployeeRequest) throws EmployeeDuplicateException;
+    void updateEmployee(String employeeUuid, UpdateEmployeeRequest updateEmployeeRequest) throws EmployeeDuplicateException;
     List<EmployeeData> getAllEmployees();
     void removeEmployee(String employeeUuid);
 }

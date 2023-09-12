@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class KafkaConnectorImpl implements KafkaConnector {
-    @Value("${topic.name.producer}")
+    @Value("${ems.kafka.topic}")
     private String employeeTaskTopicName;
 
     private final KafkaTemplate<String, Object> kafkaTemplate;

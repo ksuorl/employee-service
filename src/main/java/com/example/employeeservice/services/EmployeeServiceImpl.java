@@ -29,24 +29,28 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .email(createEmployeeRequest.getEmail())
                 .fullName(createEmployeeRequest.getFullName())
                 .birthday(createEmployeeRequest.getBirthday())
+                .hobbies(createEmployeeRequest.getHobbies())
                 .build();
         //TODO insert hobbies
         EmployeeData result = employeeRepository.createEmployee(employeeData);
-        sendNotificationToKafka(result.getEmployeeUuid(), EmployeeOperationState.CREATE, operationTime);
+        trySendNotificationToKafka(result.getEmployeeUuid(), EmployeeOperationState.CREATE, operationTime);
         return result;
     }
 
     @Override
-    public EmployeeData updateEmployee(String employeeUuid, UpdateEmployeeRequest updateEmployeeRequest) throws EmployeeDuplicateException {
+    public void updateEmployee(String employeeUuid, UpdateEmployeeRequest updateEmployeeRequest) throws EmployeeDuplicateException {
         Instant operationTime = Instant.now();
-        EmployeeData result = employeeRepository.updateEmployee(EmployeeData.builder()
+        //TODO test for updating with empty fields in updateEmployeeRequest
+        int updatedItemsCount = employeeRepository.updateEmployee(EmployeeData.builder()
                 .employeeUuid(employeeUuid)
                 .email(updateEmployeeRequest.getEmail())
                 .fullName(updateEmployeeRequest.getFullName())
                 .birthday(updateEmployeeRequest.getBirthday())
+                .hobbies(updateEmployeeRequest.getHobbies())
                 .build());
-        sendNotificationToKafka(result.getEmployeeUuid(), EmployeeOperationState.UPDATE, operationTime);
-        return result;
+        if (updatedItemsCount > 0) {
+            trySendNotificationToKafka(employeeUuid, EmployeeOperationState.UPDATE, operationTime);
+        }
     }
 
     @Override
@@ -58,11 +62,11 @@ public class EmployeeServiceImpl implements EmployeeService {
     public void removeEmployee(String employeeUuid) {
         Instant operationTime = Instant.now();
         employeeRepository.removeEmployee(employeeUuid);
-        sendNotificationToKafka(employeeUuid, EmployeeOperationState.DELETE, operationTime);
+        trySendNotificationToKafka(employeeUuid, EmployeeOperationState.DELETE, operationTime);
     }
 
-    private void sendNotificationToKafka(String employeeUuid, EmployeeOperationState operationState,
-                                         Instant operationTime) {
+    private void trySendNotificationToKafka(String employeeUuid, EmployeeOperationState operationState,
+                                            Instant operationTime) {
         try {
             OperationNotification state = OperationNotification.builder()
                     .employeeOperationState(operationState.value)

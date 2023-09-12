@@ -9,10 +9,8 @@ import com.example.employeeservice.services.DateFormatter;
 import com.example.employeeservice.services.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.ObjectUtils;
-import org.springframework.util.StreamUtils;
-import org.springframework.util.StringUtils;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.List;
 
@@ -27,7 +25,7 @@ public class EmployeeController {
     }
 
     @PostMapping
-    public void createEmployee(@RequestBody CreateEmployeeRequest createEmployeeRequest) throws EmployeeDuplicateException {
+    public void createEmployee(@RequestBody @Validated CreateEmployeeRequest createEmployeeRequest) throws EmployeeDuplicateException {
         employeeService.createEmployee(createEmployeeRequest);
     }
 
@@ -40,13 +38,14 @@ public class EmployeeController {
                         .birthday(DateFormatter.toFormattedBirthdayDate(empl.getBirthday()))
                         .email(empl.getEmail())
                         .fullName(empl.getFullName())
+                        .hobbies(empl.getHobbies())
                         .build())
                 .toList();
     }
 
     @PutMapping
     public void updateEmployee(@RequestParam(name = "uuid") String employeeUuid,
-                               @RequestBody UpdateEmployeeRequest updateEmployeeRequest) throws EmployeeDuplicateException {
+                               @RequestBody @Validated UpdateEmployeeRequest updateEmployeeRequest) throws EmployeeDuplicateException {
         employeeService.updateEmployee(employeeUuid, updateEmployeeRequest);
     }
 
