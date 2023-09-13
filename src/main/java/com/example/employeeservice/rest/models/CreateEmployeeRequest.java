@@ -4,13 +4,19 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.Value;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@Value
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class CreateEmployeeRequest {
     @Email(message = "Email should be valid")
     @NotEmpty(message = "The 'Email' is required.")
@@ -20,5 +26,6 @@ public class CreateEmployeeRequest {
     private String fullName;
     @NotNull(message = "The 'birthday' is required.")
     private Date birthday;
+    @Builder.Default
     private List<String> hobbies = new ArrayList<>();
 }

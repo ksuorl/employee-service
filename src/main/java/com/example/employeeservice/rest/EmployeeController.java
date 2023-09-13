@@ -19,7 +19,6 @@ import java.util.List;
 public class EmployeeController {
     private EmployeeService employeeService;
 
-    @Autowired
     public EmployeeController(EmployeeService employeeService) {
         this.employeeService = employeeService;
     }
@@ -31,7 +30,6 @@ public class EmployeeController {
 
     @GetMapping
     public List<GetEmployeesResponse> getAllEmployees() {
-        //TODO create separate mapper class
         return employeeService.getAllEmployees().stream()
                 .map(empl -> GetEmployeesResponse.builder()
                         .employeeUuid(empl.getEmployeeUuid())

@@ -1,3 +1,4 @@
+version: "3.8"
 services:
   db:
     image: 'mysql:8.1.0'
@@ -28,3 +29,20 @@ services:
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
       KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
       KAFKA_CREATE_TOPICS: "ems.employee_task_v1:6:1"
+
+  employee-service:
+    image: docker.io/library/employee-service:0.0.1-SNAPSHOT
+#    image: myorg/employee-service:latest
+    depends_on:
+      - db
+      - kafka
+    ports:
+      - "9000:9000"
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 10s
+        max_attempts: 3
+        window: 30s
+    environment:
+      DATASOURCE_EMPLOYEE_URL: "jdbc:mysql://db:3306/db"

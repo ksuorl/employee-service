@@ -11,6 +11,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.time.Instant;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -23,7 +24,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public EmployeeData createEmployee(CreateEmployeeRequest createEmployeeRequest) throws EmployeeDuplicateException {
         //TODO generator
-        Instant operationTime = Instant.now();
+        Date operationTime = Date.from(Instant.now());
         EmployeeData employeeData = EmployeeData.builder()
                 .employeeUuid(UUID.randomUUID().toString())
                 .email(createEmployeeRequest.getEmail())
@@ -31,7 +32,6 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .birthday(createEmployeeRequest.getBirthday())
                 .hobbies(createEmployeeRequest.getHobbies())
                 .build();
-        //TODO insert hobbies
         EmployeeData result = employeeRepository.createEmployee(employeeData);
         trySendNotificationToKafka(result.getEmployeeUuid(), EmployeeOperationState.CREATE, operationTime);
         return result;
@@ -39,7 +39,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public void updateEmployee(String employeeUuid, UpdateEmployeeRequest updateEmployeeRequest) throws EmployeeDuplicateException {
-        Instant operationTime = Instant.now();
+        Date operationTime = Date.from(Instant.now());
         //TODO test for updating with empty fields in updateEmployeeRequest
         int updatedItemsCount = employeeRepository.updateEmployee(EmployeeData.builder()
                 .employeeUuid(employeeUuid)
@@ -60,13 +60,13 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public void removeEmployee(String employeeUuid) {
-        Instant operationTime = Instant.now();
+        Date operationTime = Date.from(Instant.now());
         employeeRepository.removeEmployee(employeeUuid);
         trySendNotificationToKafka(employeeUuid, EmployeeOperationState.DELETE, operationTime);
     }
 
     private void trySendNotificationToKafka(String employeeUuid, EmployeeOperationState operationState,
-                                            Instant operationTime) {
+                                            Date operationTime) {
         try {
             OperationNotification state = OperationNotification.builder()
                     .employeeOperationState(operationState.value)

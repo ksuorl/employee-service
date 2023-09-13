@@ -1,15 +1,16 @@
 package com.example.employeeservice.rest.models;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Value;
-import org.springframework.format.annotation.DateTimeFormat;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.time.Instant;
-import java.util.Date;
 import java.util.List;
 
-@Value
+@Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class GetEmployeesResponse {
     String employeeUuid;
     String email;
