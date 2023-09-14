@@ -40,7 +40,6 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public void updateEmployee(String employeeUuid, UpdateEmployeeRequest updateEmployeeRequest) throws EmployeeDuplicateException {
         Date operationTime = Date.from(Instant.now());
-        //TODO test for updating with empty fields in updateEmployeeRequest
         int updatedItemsCount = employeeRepository.updateEmployee(EmployeeData.builder()
                 .employeeUuid(employeeUuid)
                 .email(updateEmployeeRequest.getEmail())
