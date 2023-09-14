@@ -48,12 +48,12 @@ Environment requirements:
 
 ### Build and run
 1. Build project:
-    "gradle build"
+   `gradle clean build`
 2. Build executable jar:
-    "gradle bootJar"
+   `gradle bootJar`
 3. Run via docker compose
-    docker-compose -f compose-full.yaml up
-4. Api available at http://localhost:9000/empoyees
+   `docker-compose -f compose-full.yaml up`
+4. API available at http://localhost:9000/employees
 
 ### Docker Compose support
 This project contains a Docker Compose files:

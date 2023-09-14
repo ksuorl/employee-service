@@ -15,7 +15,7 @@ public class KafkaConnectorImpl implements KafkaConnector {
     @Value("${ems.kafka.topic}")
     private String employeeTaskTopicName;
 
-    private final KafkaTemplate<String, Object> kafkaTemplate;
+    private final KafkaTemplate<String, OperationNotification> kafkaTemplate;
 
     @SneakyThrows
     @Override

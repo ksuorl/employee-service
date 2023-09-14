@@ -23,7 +23,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public EmployeeData createEmployee(CreateEmployeeRequest createEmployeeRequest) throws EmployeeDuplicateException {
-        //TODO generator
         Date operationTime = Date.from(Instant.now());
         EmployeeData employeeData = EmployeeData.builder()
                 .employeeUuid(UUID.randomUUID().toString())

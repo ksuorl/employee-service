@@ -19,7 +19,6 @@ public class EmployeeRowMapper implements RowMapper<EmployeeData> {
 
     private ObjectMapper objectMapper;
 
-    //TODO
     @SneakyThrows
     @Override
     public EmployeeData mapRow(ResultSet rs, int rowNum) {
