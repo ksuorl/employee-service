@@ -14,11 +14,11 @@ For further reference, please consider the following sections:
 ### Application description
 The application provides API to:
 1. Create an employee with the following properties
-   ○ Uuid (generated automatically)
-   ○ E-mail
-   ○ Full name (first and last name)
-   ○ Birthday (format YYYY-MM-DD)
-   ○ List of hobbies (for example, "soccer", "music", etc)
+   - Uuid (generated automatically)
+   - E-mail
+   - Full name (first and last name)
+   - Birthday (format YYYY-MM-DD)
+   - List of hobbies (for example, "soccer", "music", etc)
 2. Get a list of all employees (response in JSON Array format)
 3. Get a specific employee by uuid (response in JSON Object format)
 4. Update an employee
@@ -28,9 +28,9 @@ The application provides API to:
    The inability to send a notification does not affect the result of the operation.
 
 Notification message includes the following properties:
-    ○ employeeUuid
-    ○ employeeOperationState (enum value. possible values: ["Create", "Update", "Delete"])
-    ○ operationDate
+    - employeeUuid
+    - employeeOperationState (enum value. possible values: ["Create", "Update", "Delete"])
+    - operationDate
 
 ### Swagger Spec
  - http://localhost:8080/api-docs
