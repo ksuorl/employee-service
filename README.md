@@ -13,24 +13,25 @@ For further reference, please consider the following sections:
 
 ### Docker Compose support
 This project contains a Docker Compose files:
-    - `compose.yaml` - includes all services, needed in environment to start application. Will be started automatically, when application started from IDE.
-    - `compose-full.yaml`- includes environment services and also application. 
-By default, the version of application is 'latest'. Yes can change version by providing specific docker tag for container "ems". Docker images for "ems" should exist in local host.
+- `compose.yaml` - includes all services, needed in environment to start the application. Will be started automatically, when the application starts from IDE.
+- `compose-full.yaml`- includes environment services and also the application.
+By default, the version of the application is 'latest'. Yes can change the version by providing a specific docker tag for container "ems". Docker images for "ems" should exist in the local host.
 
 ### Dockerfile
-You can find dockerfile in the root of project.
-You should build image locally before first usage performing the command from project root dir:
+You can find the Dockerfile at the root of the project.
+You can build an image locally by performing the command from project root dir:
 
 "docker build -t myorg/employee-service:latest . "
 
 or call "gradle bootBuildImage"
+
 ### Swagger Spec
 http://localhost:8080/api-docs
 http://localhost:9000/swagger-ui/index.html
 
 
 ### Integration tests
-There is gradle task 'integrationTest' in project.
+There is a gradle task 'integrationTest' in the project.
 EmployeeServiceApplication and all related services should run, when you launch task 'integrationTest'.
 You can run them easily by running a command:
 
@@ -38,4 +39,3 @@ You can run them easily by running a command:
 
 Run integration tests by command:
 `gradle integrationTest`
-
