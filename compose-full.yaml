@@ -31,8 +31,9 @@ services:
       KAFKA_CREATE_TOPICS: "ems.employee_task_v1:6:1"
 
   employee-service:
-    image: docker.io/library/employee-service:0.0.1-SNAPSHOT
 #    image: myorg/employee-service:latest
+    build:
+      dockerfile: Dockerfile
     depends_on:
       - db
       - kafka

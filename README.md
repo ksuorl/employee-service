@@ -36,19 +36,31 @@ Notification message includes the following properties:
  - http://localhost:8080/api-docs
  - http://localhost:9000/swagger-ui/index.html
 
+### Development infrastructure for Employee-Service
+
+Environment requirements:
+
+- JDK v.17
+- Gradle
+- Docker
+- Docker-compose
+
+
+### Build and run
+1. Build project:
+    "gradle build"
+2. Build executable jar:
+    "gradle bootJar"
+3. Run via docker compose
+    docker-compose -f compose-full.yaml up
+4. Api available at http://localhost:9000/empoyees
+
 ### Docker Compose support
 This project contains a Docker Compose files:
 - `compose.yaml` - includes all services, needed in environment to start the application. Will be started automatically, when the application starts from IDE.
 - `compose-full.yaml`- includes environment services and also the application.
-By default, the version of the application is 'latest'. Yes can change the version by providing a specific docker tag for container "ems". Docker images for "ems" should exist in the local host.
-
-### Dockerfile
-You can find the Dockerfile at the root of the project.
-You can build an image locally by performing the command from project root dir:
-
-"docker build -t myorg/employee-service:latest . "
-
-or call "gradle bootBuildImage"
+  By default, the docker image of the application will be built on docker compose start (executable .jar package of app should exist in the local host build/libs/employee-service-0.0.1-SNAPSHOT.jar).
+  You can change the version by providing a specific docker image:tag for container "ems". Docker images for "ems" should exist in the local host.
 
 ### Integration tests
 There is a gradle task 'integrationTest' in the project.
