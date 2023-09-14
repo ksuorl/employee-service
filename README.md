@@ -11,6 +11,31 @@ For further reference, please consider the following sections:
 * [Liquibase Migration](https://docs.spring.io/spring-boot/docs/3.1.3/reference/htmlsingle/index.html#howto.data-initialization.migration-tool.liquibase)
 * [JDBC API](https://docs.spring.io/spring-boot/docs/3.1.3/reference/htmlsingle/index.html#data.sql)
 
+### Application description
+The application provides API to:
+1. Create an employee with the following properties
+   ○ Uuid (generated automatically)
+   ○ E-mail
+   ○ Full name (first and last name)
+   ○ Birthday (format YYYY-MM-DD)
+   ○ List of hobbies (for example, "soccer", "music", etc)
+2. Get a list of all employees (response in JSON Array format)
+3. Get a specific employee by uuid (response in JSON Object format)
+4. Update an employee
+5. Delete an employee
+6. Whenever an employee is created, updated or deleted, an event related to this
+   action will be pushed in the Kafka message broker.
+   The inability to send a notification does not affect the result of the operation.
+
+Notification message includes the following properties:
+    ○ employeeUuid
+    ○ employeeOperationState (enum value. possible values: ["Create", "Update", "Delete"])
+    ○ operationDate
+
+### Swagger Spec
+ - http://localhost:8080/api-docs
+ - http://localhost:9000/swagger-ui/index.html
+
 ### Docker Compose support
 This project contains a Docker Compose files:
 - `compose.yaml` - includes all services, needed in environment to start the application. Will be started automatically, when the application starts from IDE.
@@ -24,11 +49,6 @@ You can build an image locally by performing the command from project root dir:
 "docker build -t myorg/employee-service:latest . "
 
 or call "gradle bootBuildImage"
-
-### Swagger Spec
-http://localhost:8080/api-docs
-http://localhost:9000/swagger-ui/index.html
-
 
 ### Integration tests
 There is a gradle task 'integrationTest' in the project.
