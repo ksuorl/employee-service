@@ -28,9 +28,9 @@ The application provides API to:
    The inability to send a notification does not affect the result of the operation.
 
 Notification message includes the following properties:
-    - employeeUuid
-    - employeeOperationState (enum value. possible values: ["Create", "Update", "Delete"])
-    - operationDate
+- employeeUuid
+- employeeOperationState (enum value. possible values: ["Create", "Update", "Delete"])
+- operationDate
 
 ### Swagger Spec
  - http://localhost:8080/api-docs
